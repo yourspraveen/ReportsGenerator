@@ -23,13 +23,12 @@ public class ReportRunner {
                     .getResourceAsStream("/Users/praveen/IdeaProjects/ReportsGenerator/target/jasper/HelloJasper.jasper");
 
             JasperReport report = JasperCompileManager.compileReport("/Users/praveen/IdeaProjects/ReportsGenerator/src/main/jasperreports/HelloJasper.jrxml");
-            JasperPrint print = JasperFillManager.fillReport(report,null);
-            JasperExportManager.exportReportToPdfFile(print,"/Users/praveen/IdeaProjects/ReportsGenerator/target/Hello.pdf");
-
             JRDataSource dataSource = new JRBeanCollectionDataSource(new ArrayList<String>());
 
-            JasperRunManager.runReportToPdf(is, parameterMap);
-        } catch (JRException ex){
+            JasperPrint print = JasperFillManager.fillReport(report, parameterMap, dataSource);
+            JasperExportManager.exportReportToPdfFile(print, "/Users/praveen/IdeaProjects/ReportsGenerator/target/HelloJasper.pdf");
+
+        } catch (JRException ex) {
             LOGGER.error(ex);
         }
     }
